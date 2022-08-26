@@ -1,0 +1,23 @@
+node_modules/
+.DS_Store
+.env
+.openzeppelin/
+
+#Hardhat files
+**.dbg.json
+yarn.lock
+cache/
+artifacts/
+flattened/
+deployments/
+contracts/helper/
+
+# IDE
+.vscode/
+.idea/
+
+# Coverage
+coverage.json
+coverage/
+
+package-lock.json
