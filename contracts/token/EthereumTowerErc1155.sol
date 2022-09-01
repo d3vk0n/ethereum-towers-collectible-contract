@@ -166,8 +166,7 @@ contract EthereumTowerCollectible is
     ) public virtual override {
         require(
             account == _msgSender() ||
-                isApprovedForAll(account, _msgSender()) ||
-                hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+                isApprovedForAll(account, _msgSender()),
             "ETT: caller is not owner nor approved nor admin"
         );
         _burn(account, id, value);
@@ -181,8 +180,7 @@ contract EthereumTowerCollectible is
     ) public virtual override {
         require(
             account == _msgSender() ||
-                isApprovedForAll(account, _msgSender()) ||
-                hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+                isApprovedForAll(account, _msgSender()),
             "ETT: caller is not owner nor approved nor admin"
         );
         _burnBatch(account, ids, values);

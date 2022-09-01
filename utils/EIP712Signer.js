@@ -41,6 +41,14 @@ const AirdropMintMultiVoucherType = {
   ]
 };
 
+const NativeRequestType = {
+  Request: [
+    { name: "receiverAddress", type: "address"},
+    { name: "receiverValue", type: "uint256"},
+    { name: "nonce", type: "uint256"}
+  ]
+}
+
 function getRandomInt() {
   return Math.floor(Math.random() * 1000000000000);
 }
@@ -122,6 +130,7 @@ class EIP712Signer {
 
 module.exports = {
   EIP712Signer,
+  NativeRequestType,
   EthereumTowerVoucherType,
   TakerOrderVoucherType,
   InstantMintMultiVoucherType,

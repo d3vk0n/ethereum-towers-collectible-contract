@@ -53,7 +53,7 @@ contract EthereumTowerCollectibleMarket is
         paymentToken = _paymentToken;
         nftCollectibleAddress = _nftCollectibleAddress;
         serviceAddress = _serviceAddress;
-        serviceFeePercent = 2;
+        serviceFeePercent = 0.02e18;
 
         _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
         _setupRole(PAUSER_ROLE, _msgSender());
@@ -203,7 +203,7 @@ contract EthereumTowerCollectibleMarket is
             "ETT: missing required role"
         );
 
-        serviceFeeAddress = payable(_serviceFeeAddress);
+        serviceFeeAddress = _serviceFeeAddress;
     }
 
     function updateServiceFeePercent(uint256 _serviceFeePercent) external {
@@ -239,13 +239,6 @@ contract EthereumTowerCollectibleMarket is
 
         IERC1155(nftContractAddress).safeTransferFrom(
             from,
-            address(this),
-            tokenId,
-            amount,
-            data
-        );
-        IERC1155(nftContractAddress).safeTransferFrom(
-            address(this),
             to,
             tokenId,
             amount,

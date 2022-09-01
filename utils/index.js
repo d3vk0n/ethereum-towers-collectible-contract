@@ -1,5 +1,6 @@
 const {
   EIP712Signer,
+  NativeRequestType,
   EthereumTowerVoucherType,
   InstantMintMultiVoucherType,
   AirdropMintMultiVoucherType,
@@ -8,6 +9,7 @@ const {
 
 module.exports = {
   EIP712Signer,
+  NativeRequestType,
   EthereumTowerVoucherType,
   InstantMintMultiVoucherType,
   AirdropMintMultiVoucherType,

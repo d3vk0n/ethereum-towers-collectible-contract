@@ -7,6 +7,6 @@ library PaymentHelper {
         pure
         returns (uint256)
     {
-        return (value * percent) / 100000000000000000000; //Percent should be in 10e18
+        return (value * percent) / 1e18; //Percent should be in 10e18
     }
 }

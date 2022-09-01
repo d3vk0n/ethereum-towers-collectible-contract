@@ -6,6 +6,7 @@ require('@openzeppelin/hardhat-upgrades');
 require('@nomiclabs/hardhat-web3');
 require('solidity-coverage');
 
+// const tdly = require("@tenderly/hardhat-tenderly");
 const fs = require('fs');
 const path = require('path');
 
@@ -13,7 +14,15 @@ const deployer = process.env.DEPLOYER;
 const serviceSigner = process.env.TEST_SERVICE_SIGNER;
 const testAccount1 = process.env.TEST_ACCOUNT_1;
 const testAccount2 = process.env.TEST_ACCOUNT_2;
+const forkId = process.env.FORK_ID
 
+// tdly.setup({
+//   project: "ethereumtowers",
+//   username: "d3vk0n",
+//   forkNetwork: "8900a343-5a28-4b04-bd98-ad9651f7e828",
+//   privateVerification: true,
+//   deploymentsDir: "deployments"
+// });
 
 const polygonscanKey = process.env.POLYGONSCAN_API_KEY;
 const blastApiId = process.env.BLAST_ID;
@@ -75,8 +84,16 @@ module.exports = {
       privateVerification: true,
       accounts: [deployer, serviceSigner, testAccount1, testAccount2],
     },
-    hardhat: {}
+    hardhat: {},
+    tenderly: {
+      url: `https://rpc.tenderly.co/fork/${forkId}`
+    }
   },
+  // tenderly: {
+  //   project: "ethereumtowers",
+  //   username: "d3vk0n",
+  //   privateVerification: true,
+  // },
   solidity: {
     version: "0.8.9",
     settings: {

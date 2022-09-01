@@ -4,10 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "simulation": "npx hardhat test ./test/TestNativeHelper.js --network tenderly",
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf .openzeppelin cache artifacts coverage node_modules coverage.json",
     "flatten:EthereumTowers": "npx hardhat flatten contracts/token/EthereumTowerErc1155.sol > flattened/flattened_ett.sol --show-stack-traces",
-    "deploy:ethereum_towers": "npx hardhat run scripts/deployWithProxy.js --network"
+    "flatten:NativeHelper": "npx hardhat flatten contracts/helper/NativeHelper.sol > flattened/flattened_native_helper.sol --show-stack-traces",
+    "deploy:ethereum_towers": "npx hardhat run scripts/deployWithProxy.js --network",
+    "deploy:native_helper": "npx hardhat run scripts/deployNativeHelper.js --network"
   },
   "author": "Sergey Kononov",
   "license": "MIT",
@@ -15,7 +18,7 @@
     "@nomiclabs/hardhat-ethers": "2.0.6",
     "@nomiclabs/hardhat-solhint": "^2.0.1",
     "@nomiclabs/hardhat-waffle": "^2.0.3",
-    "@tenderly/hardhat-tenderly": "^1.1.4",
+    "@tenderly/hardhat-tenderly": "^1.1.6",
     "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.4",
     "ethers": "5.6.8",
@@ -31,6 +34,7 @@
     "@openzeppelin/contracts": "^4.6.0",
     "@openzeppelin/contracts-upgradeable": "^4.6.0",
     "@openzeppelin/hardhat-upgrades": "^1.19.0",
+    "axios": "^0.27.2",
     "dotenv": "^16.0.1",
     "hardhat-contract-sizer": "^2.5.1",
     "hardhat-gas-reporter": "^1.0.8",

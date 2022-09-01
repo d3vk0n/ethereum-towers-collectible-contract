@@ -1,7 +1,6 @@
 //SPDX-License-Identifier: UNLICENSED
 pragma solidity 0.8.9;
 
-import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/PausableUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/security/ReentrancyGuardUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
@@ -18,7 +17,6 @@ contract EthereumTowerCollectibleAddon is
     AccessControlEnumerableUpgradeable,
     ERC1155HolderUpgradeable,
     EIP712Upgradeable,
-    OwnableUpgradeable,
     PausableUpgradeable,
     ReentrancyGuardUpgradeable
 {
