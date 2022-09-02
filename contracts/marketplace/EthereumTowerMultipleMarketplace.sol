@@ -211,6 +211,7 @@ contract EthereumTowerCollectibleMarket is
             hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
             "ETT: missing required role"
         );
+        require(_serviceFeePercent <= 20e18, "Check service fee percent");
 
         serviceFeePercent = _serviceFeePercent;
     }
