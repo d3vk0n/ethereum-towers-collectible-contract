@@ -8,6 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf .openzeppelin cache artifacts coverage node_modules coverage.json",
     "flatten:EthereumTowers": "npx hardhat flatten contracts/token/EthereumTowerErc1155.sol > flattened/flattened_ett.sol --show-stack-traces",
+    "flatten:EthereumAddon": "npx hardhat flatten contracts/token/EthereumTowerAddon.sol > flattened/flattened_ett_addon.sol --show-stack-traces",
     "flatten:NativeHelper": "npx hardhat flatten contracts/helper/NativeHelper.sol > flattened/flattened_native_helper.sol --show-stack-traces",
     "deploy:ethereum_towers": "npx hardhat run scripts/deployWithProxy.js --network",
     "deploy:native_helper": "npx hardhat run scripts/deployNativeHelper.js --network"

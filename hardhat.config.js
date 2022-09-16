@@ -79,8 +79,8 @@ module.exports = {
       accounts: [deployer, serviceSigner, testAccount1, testAccount2],
     },
     mumbai: {
-      url: `https://polygon-testnet.blastapi.io/${blastApiId}`,
-      gasPrice: 180000000000,
+      url: `https://goerli.infura.io/v3/b8e801cfe1884937ad385aa0c13734f7`,
+      gasPrice: 10000000000,
       privateVerification: true,
       accounts: [deployer, serviceSigner, testAccount1, testAccount2],
     },
