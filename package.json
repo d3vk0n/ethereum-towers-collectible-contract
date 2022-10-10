@@ -9,6 +9,7 @@
     "clean": "rm -rf .openzeppelin cache artifacts coverage node_modules coverage.json",
     "flatten:EthereumTowers": "npx hardhat flatten contracts/token/EthereumTowerErc1155.sol > flattened/flattened_ett.sol --show-stack-traces",
     "flatten:EthereumAddon": "npx hardhat flatten contracts/token/EthereumTowerAddon.sol > flattened/flattened_ett_addon.sol --show-stack-traces",
+    "flatten:EthereumMarket": "npx hardhat flatten contracts/marketplace/EthereumTowerMultipleMarketplace.sol > flattened/flattened_ett_market.sol --show-stack-traces",
     "flatten:NativeHelper": "npx hardhat flatten contracts/helper/NativeHelper.sol > flattened/flattened_native_helper.sol --show-stack-traces",
     "deploy:ethereum_towers": "npx hardhat run scripts/deployWithProxy.js --network",
     "deploy:native_helper": "npx hardhat run scripts/deployNativeHelper.js --network"
@@ -40,6 +41,7 @@
     "hardhat-contract-sizer": "^2.5.1",
     "hardhat-gas-reporter": "^1.0.8",
     "hardhat-tracer": "^1.1.0-rc.6",
+    "mongoose": "^6.6.5",
     "solidity-coverage": "^0.7.21"
   }
 }

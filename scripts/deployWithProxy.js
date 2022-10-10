@@ -5,6 +5,7 @@ let ETHEREUM_TOWER_ERC1155;
 let SERVICE_FEE_ADDRESS = process.env.SERVICE_FEE_ADDRESS
 let PAYMENT_TOKEN = process.env.ERC20_CONTRACT_ADDRESS
 let SERVICE_ADDRESS = process.env.SERVICE_PUBLIC_KEY
+let PAYMENT_RECEIVER = process.env.PAYMENT_RECEIVER
 
 async function deployEthereumTowersTestERC20() {
   const TestERC20 = await hre.ethers.getContractFactory('TestERC20')
@@ -68,15 +69,37 @@ async function deployEthereumTowersCollectibleAddon() {
   console.log('Ethereum Towers Collectible Addon deployed to:', ettMarket.address)
 }
 
+async function deployEthereumTowersVaultAddon() {
+  const EthereumTowersCollectibleFactory = await hre.ethers.getContractFactory(
+    'EthereumTowerVaultAddon'
+  );
+  const ettVault = await upgrades.deployProxy(
+    EthereumTowersCollectibleFactory,
+    [
+      ETHEREUM_TOWER_ERC1155,
+      SERVICE_ADDRESS,
+      PAYMENT_TOKEN,
+      PAYMENT_RECEIVER
+    ],
+    {
+      initializer: "initialize"
+    }
+  )
+  await ettVault.deployed()
+  console.log('Ethereum Towers Vault Addon deployed to:', ettVault.address)
+}
+
 
 deployEthereumTowersTestERC20().then(() => {
-  deployEthereumTowersCollectible().then(() => {
-    deployEthereumTowersCollectibleMarket().then(() => {
-      deployEthereumTowersCollectibleAddon().then(() => {
-        console.log('Deployment complete')
-        process.exit(0)
-      })
-    })
+  // deployEthereumTowersCollectible().then(() => {
+  //   deployEthereumTowersCollectibleMarket().then(() => {
+  //     deployEthereumTowersCollectibleAddon().then(() => {
+  //       deployEthereumTowersVaultAddon().then(()=>{
+  //         console.log('Deployment complete')
+  //         process.exit(0)
+  //       })
+  //     })
+  //   })
   })
     .catch(err => {
       console.log('Deployment failed:', err)
@@ -84,4 +107,4 @@ deployEthereumTowersTestERC20().then(() => {
     })
 
 
-})
+// })
