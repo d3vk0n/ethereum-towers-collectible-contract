@@ -8,6 +8,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clean": "rm -rf .openzeppelin cache artifacts coverage node_modules coverage.json",
     "flatten:EthereumTowers": "npx hardhat flatten contracts/token/EthereumTowerErc1155.sol > flattened/flattened_ett.sol --show-stack-traces",
+    "flatten:erc20": "npx hardhat flatten contracts/test/TestERC20.sol > flattened/flattened_erc20.sol --show-stack-traces",
+    "flatten:vault": "npx hardhat flatten contracts/marketplace/EthereumTowerVaultAddon.sol > flattened/flattened_vault.sol --show-stack-traces",
     "flatten:EthereumAddon": "npx hardhat flatten contracts/token/EthereumTowerAddon.sol > flattened/flattened_ett_addon.sol --show-stack-traces",
     "flatten:EthereumMarket": "npx hardhat flatten contracts/marketplace/EthereumTowerMultipleMarketplace.sol > flattened/flattened_ett_market.sol --show-stack-traces",
     "flatten:NativeHelper": "npx hardhat flatten contracts/helper/NativeHelper.sol > flattened/flattened_native_helper.sol --show-stack-traces",

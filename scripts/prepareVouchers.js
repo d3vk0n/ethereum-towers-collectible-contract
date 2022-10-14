@@ -27,60 +27,60 @@ let eip712Signer
 const seller = new ethers.Wallet("a7981403fd3da66e6753dbee7e7fc09e145d98cd15098f67147bc66872070b00", provider)
 const taker = new ethers.Wallet("74e5065a36b813d57e86bcc47279918fb3c5ffbc597dd02428ac87953f27ac26", provider)
 console.log(seller.privateKey)
-// const database = require('../utils/database')
-// database()
+const database = require('../utils/database')
+database()
 
-// const Token = require("./tokenModel")
+const Token = require("./tokenModel")
 
-// eip712Signer = new EIP712Signer({
-//     signing_domain: SIGNING_DOMAIN,
-//     signature_version: SIGNATURE_VERSION,
-//     contract: contract,
-//     serviceAddress: serviceSigner
-// });
+eip712Signer = new EIP712Signer({
+    signing_domain: SIGNING_DOMAIN,
+    signature_version: SIGNATURE_VERSION,
+    contract: contract,
+    serviceAddress: serviceSigner
+});
 
-// async function prepareSignatures(i) {
-//     console.log(`Token ${i} generated and saved to DB`)
-//     const tokensAmount = 10
-//     let price = ethers.utils.parseEther("0.001")
+async function prepareSignatures(i) {
+    console.log(`Token ${i} generated and saved to DB`)
+    const tokensAmount = 10
+    let price = ethers.utils.parseEther("0.001")
 
-//     const voucherData = {
-//         target: contract.address,
-//         tokenId: getRandomInt(),
-//         fixPrice: price,
-//         amount: tokensAmount,
-//         author: seller.address,
-//         tokenOwner: seller.address,
-//         royaltyFee: 0,
-//         isFirstSale: true,
-//         serviceAddress: serviceSigner.address,
-//     };
-//     const signedVoucher = await eip712Signer.signVoucher(voucherData, EthereumTowerVoucherType, seller);
-//     const takerVoucher = await eip712Signer.signTakerVoucher(
-//         signedVoucher.tokenId,
-//         taker.address,
-//         getRandomInt(),
-//         signedVoucher.signature
-//     );
-//     let newRecord = await new Token({
-//         voucher: signedVoucher,
-//         takerVoucher: takerVoucher
-//     })
-//     await newRecord.save()
-// }
+    const voucherData = {
+        target: contract.address,
+        tokenId: getRandomInt(),
+        fixPrice: price,
+        amount: tokensAmount,
+        author: seller.address,
+        tokenOwner: seller.address,
+        royaltyFee: 0,
+        isFirstSale: true,
+        serviceAddress: serviceSigner.address,
+    };
+    const signedVoucher = await eip712Signer.signVoucher(voucherData, EthereumTowerVoucherType, seller);
+    const takerVoucher = await eip712Signer.signTakerVoucher(
+        signedVoucher.tokenId,
+        taker.address,
+        getRandomInt(),
+        signedVoucher.signature
+    );
+    let newRecord = await new Token({
+        voucher: signedVoucher,
+        takerVoucher: takerVoucher
+    })
+    await newRecord.save()
+}
 
-// const counter = 10000
+const counter = 10000
 
 
 
-// async function start() {
-//     for (let i = 0; i <= counter; i++) {
-//         await prepareSignatures(i)
-//         if (i == counter) {
-//             console.log("Done!")
-//             process.exit(0)
-//         }
-//     }
-// }
+async function start() {
+    for (let i = 0; i <= counter; i++) {
+        await prepareSignatures(i)
+        if (i == counter) {
+            console.log("Done!")
+            process.exit(0)
+        }
+    }
+}
 
-// start()
+start()

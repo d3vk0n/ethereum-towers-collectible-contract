@@ -40,6 +40,11 @@ contract EthereumTowerVaultAddon is
         uint256 amount;
         uint256 nonce;
         bytes serviceSignature;
+    }
+
+    struct VaultBuyVoucherFe {
+        address buyer;
+        uint256 nonce;
         bytes buyerSignature;
     }
 
@@ -177,8 +182,13 @@ contract EthereumTowerVaultAddon is
         paymentReceiver = _paymentReceiver;
     }
 
-    function buyVault(VaultBuyVoucher calldata voucher) public whenNotPaused {
-        (address buyerAddress, address serviceSignerAddress) = _verify(voucher);
+    function buyVault(
+        VaultBuyVoucher calldata voucher,
+        VaultBuyVoucherFe calldata feVoucher
+    ) public whenNotPaused {
+        address buyerAddress = _verify(feVoucher);
+        address serviceSignerAddress = _verify(voucher);
+        require(voucher.buyer == feVoucher.buyer, "Buyer dont match");
 
         require(
             serviceSignerAddress == serviceAddress &&
@@ -282,10 +292,43 @@ contract EthereumTowerVaultAddon is
             );
     }
 
+    function _hash(VaultBuyVoucherFe calldata voucher)
+        internal
+        view
+        returns (bytes32)
+    {
+        return
+            _hashTypedDataV4(
+                keccak256(
+                    abi.encode(
+                        keccak256(
+                            "VaultBuyVoucher(address buyer,uint256 nonce)"
+                        ),
+                        voucher.buyer,
+                        voucher.nonce
+                    )
+                )
+            );
+    }
+
     function _verify(VaultBuyVoucher calldata voucher)
         internal
         view
-        returns (address, address)
+        returns (address)
+    {
+        bytes32 digest = _hash(voucher);
+
+        address serviceSignerAddress = ECDSAUpgradeable.recover(
+            digest,
+            voucher.serviceSignature
+        );
+        return serviceSignerAddress;
+    }
+
+    function _verify(VaultBuyVoucherFe calldata voucher)
+        internal
+        view
+        returns (address)
     {
         bytes32 digest = _hash(voucher);
 
@@ -293,11 +336,7 @@ contract EthereumTowerVaultAddon is
             digest,
             voucher.buyerSignature
         );
-        address serviceSignerAddress = ECDSAUpgradeable.recover(
-            digest,
-            voucher.serviceSignature
-        );
-        return (artBuyerAddress, serviceSignerAddress);
+        return artBuyerAddress;
     }
 
     function _hash(VaultRewardVoucher calldata voucher)

@@ -50,10 +50,10 @@ contract EthereumTowerCollectibleAddon is
         bytes serviceSignature;
     }
 
-    function initialize(
-        address _nftCollectibleAddress,
-        address _serviceAddress
-    ) public initializer {
+    function initialize(address _nftCollectibleAddress, address _serviceAddress)
+        public
+        initializer
+    {
         __EIP712_init(SIGNING_DOMAIN, SIGNATURE_VERSION);
         nftCollectibleAddress = _nftCollectibleAddress;
         serviceAddress = _serviceAddress;
@@ -177,6 +177,20 @@ contract EthereumTowerCollectibleAddon is
         return voucher.tokenId;
     }
 
+    function updateServiceAddress(address _serviceAddress) external {
+        require(
+            hasRole(DEFAULT_ADMIN_ROLE, _msgSender()),
+            "ETT: missing required role"
+        );
+
+        require(
+            !_isContract(_serviceAddress),
+            "ETT: contract cannot be signer"
+        );
+
+        serviceAddress = _serviceAddress;
+    }
+
     function airdrop(AirdropVoucher calldata voucher)
         public
         whenNotPaused
@@ -298,7 +312,8 @@ contract EthereumTowerCollectibleAddon is
         );
         return (artAuthorAddress, serviceSignerAddress);
     }
-        function supportsInterface(bytes4 interfaceId)
+
+    function supportsInterface(bytes4 interfaceId)
         public
         view
         virtual

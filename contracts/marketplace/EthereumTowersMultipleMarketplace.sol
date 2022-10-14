@@ -16,7 +16,7 @@ import "../interfaces/IEthereumTowerErc1155.sol";
 import "../library/PaymentHelper.sol";
 import "../token/EthereumTowerErc1155.sol";
 
-contract EthereumTowerCollectibleMarket is
+contract EthereumTowersCollectibleMarket is
     Initializable,
     AccessControlEnumerableUpgradeable,
     ERC1155HolderUpgradeable,
